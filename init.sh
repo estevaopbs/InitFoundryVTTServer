@@ -91,17 +91,8 @@ echo "Enter the domain name:"
 read domainName
 
 # Create apache config file
-echo "ServerName $domainName
-
-<VirtualHost *:80>
-    ServerName $domainName
-    ServerAlias *.$domainName
-
-    RewriteEngine On
-    RewriteCond %{HTTP_HOST} !^www\. [NC,OR]
-    RewriteCond %{HTTPS} off
-    RewriteRule ^ https://www.$domainName%{REQUEST_URI} [NE,R=301,L]
-</VirtualHost>
+echo "
+ServerName $domainName
 
 <VirtualHost *:443>
     ServerName $domainName
