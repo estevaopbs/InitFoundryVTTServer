@@ -20,7 +20,7 @@ apt update
 apt upgrade -y
 
 # Enable apache2 modules
-a2enmod ssl rewrite proxy proxy_http
+a2enmod ssl rewrite proxy proxy_http headers
 
 # Receive FoundryVTT download link as user input 
 echo "Enter the FoundryVTT download link:"
@@ -98,7 +98,7 @@ echo "ServerName $domainName
     ServerAlias *.$domainName
 
     RewriteEngine On
-    RewriteCond %{HTTP_HOST} !^www\. [NC,OR]
+    RewriteCond %{HTTP_HOST} "!^"www\. [NC,OR]
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://www.$domainName%{REQUEST_URI} [NE,R=301,L]
 </VirtualHost>
@@ -113,7 +113,7 @@ echo "ServerName $domainName
 
     # Redirect non-www to www for HTTPS
     RewriteEngine On
-    RewriteCond %{HTTP_HOST} !^www\. [NC]
+    RewriteCond %{HTTP_HOST} "!^"www\. [NC]
     RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Proxy Server Configuration
